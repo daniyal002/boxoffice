@@ -11,6 +11,7 @@ import {
   Paper,
   Button,
   Grid,
+  Typography,
 } from "@mui/material";
 import UpdateCashe from "./UpdateCashe/UpdateCashe";
 
@@ -33,7 +34,10 @@ const Cashe = () => {
     setCasheId(id);
     setCasheName(name);
   };
-
+  let totalBalance;
+  if (data) {
+    totalBalance = data.reduce((total, cashe) => total + cashe.balance, 0);
+  }
   return (
     <div>
       <Grid>
@@ -44,7 +48,16 @@ const Cashe = () => {
           casheId={casheId}
           casheName={casheName}
         />
-        <Button onClick={handleOpenCreate}>Создать кассу</Button>
+        <Button
+          onClick={handleOpenCreate}
+          color="success"
+          variant="contained"
+          sx={{
+            margin: "20px",
+          }}
+        >
+          Создать кассу
+        </Button>
         <TableContainer
           component={Paper}
           sx={{ margin: "0 auto", maxWidth: "800px", overflowX: "auto" }}
@@ -66,7 +79,7 @@ const Cashe = () => {
                 data.map((cashe) => (
                   <TableRow key={cashe.name}>
                     <TableCell>{cashe.name}</TableCell>
-                    <TableCell>{cashe.balance}</TableCell>
+                    <TableCell>{cashe.balance}₽</TableCell>
                     <TableCell>
                       <Button
                         variant="contained"
@@ -88,6 +101,19 @@ const Cashe = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        <Typography
+          variant="h6"
+          sx={{
+            maxWidth: "750px",
+            margin: "20px auto",
+            padding: "10px",
+            borderRadius: "8px",
+            textAlign: "center",
+            backgroundColor: "#e0e0e0",
+          }}
+        >
+          Общая Сумма: {totalBalance}₽
+        </Typography>
       </Grid>
     </div>
   );

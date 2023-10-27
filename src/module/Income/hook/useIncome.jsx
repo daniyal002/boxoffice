@@ -1,25 +1,25 @@
 import { useState } from "react";
-import {
-  createCashe,
-  deleteCashe,
-  getAllCashe,
-  getCasheById,
-  updateCashe,
-} from "../service/Cashe.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  createIncome,
+  deleteIncome,
+  getAllIncome,
+  getIncomeById,
+  updateIncome,
+} from "../service/Income.service";
 
-const useGetAllCashes = () => {
-  const { data, isError, isLoading } = useQuery(["getAllCashes"], () =>
-    getAllCashe()
+const useGetAllIncomes = () => {
+  const { data, isError, isLoading } = useQuery(["getAllIncomes"], () =>
+    getAllIncome()
   );
   return { data, isError, isLoading };
 };
 
-const useGetCasheById = () => {
+const useGetIncomeById = () => {
   const [err, setErr] = useState();
   const { data, isLoading, mutate } = useMutation(
-    ["getCasheById"],
-    (body) => getCasheById(body),
+    ["getIncomeById"],
+    (body) => getIncomeById(body),
     {
       onSuccess: () => {
         setErr();
@@ -32,38 +32,42 @@ const useGetCasheById = () => {
   return { err, data, mutate, isLoading };
 };
 
-const useCreateCashe = () => {
+const useCreateIncome = () => {
   const queryClient = useQueryClient();
 
   const refreshData = () => {
-    queryClient.invalidateQueries("getAllCashes");
-    queryClient.invalidateQueries("getCasheById");
+    queryClient.invalidateQueries("getAllIncomes");
+    queryClient.invalidateQueries("getIncomeById");
   };
 
   const [err, setErr] = useState();
-  const { mutate } = useMutation(["createCashe"], (body) => createCashe(body), {
-    onSuccess: () => {
-      refreshData();
-      setErr();
-    },
-    onError: (error) => {
-      setErr(error.response?.data?.message);
-    },
-  });
+  const { mutate } = useMutation(
+    ["createIncome"],
+    (body) => createIncome(body),
+    {
+      onSuccess: () => {
+        refreshData();
+        setErr();
+      },
+      onError: (error) => {
+        setErr(error.response?.data?.message);
+      },
+    }
+  );
 
   return { err, mutate };
 };
 
-const useUpdateCashe = () => {
+const useUpdateIncome = () => {
   const queryClient = useQueryClient();
 
   const refreshData = () => {
-    queryClient.invalidateQueries("getAllCashes");
+    queryClient.invalidateQueries("getAllIncomes");
   };
   const [err, setErr] = useState();
   const { mutate, isLoading } = useMutation(
-    ["updateCashe"],
-    (body) => updateCashe(body),
+    ["updateIncome"],
+    (body) => updateIncome(body),
     {
       onSuccess: () => {
         refreshData();
@@ -77,16 +81,16 @@ const useUpdateCashe = () => {
   return { err, mutate, isLoading };
 };
 
-const useDeleteCashe = () => {
+const useDeleteIncome = () => {
   const queryClient = useQueryClient();
 
   const refreshData = () => {
-    queryClient.invalidateQueries("getAllCashes");
+    queryClient.invalidateQueries("getAllIncomes");
   };
   const [err, setErr] = useState();
   const { mutate, isLoading } = useMutation(
-    ["deleteCashe"],
-    (casheId) => deleteCashe(casheId),
+    ["deleteIncome"],
+    (IncomeId) => deleteIncome(IncomeId),
     {
       onSuccess: () => {
         refreshData();
@@ -101,9 +105,9 @@ const useDeleteCashe = () => {
 };
 
 export {
-  useGetAllCashes,
-  useGetCasheById,
-  useCreateCashe,
-  useUpdateCashe,
-  useDeleteCashe,
+  useGetAllIncomes,
+  useGetIncomeById,
+  useCreateIncome,
+  useUpdateIncome,
+  useDeleteIncome,
 };

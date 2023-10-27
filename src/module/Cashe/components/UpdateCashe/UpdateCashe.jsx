@@ -32,12 +32,23 @@ const UpdateCashe = ({ open, setOpen, casheId, casheName }) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          height: "100vh",
+          height: "80%",
           justifyContent: "center",
           rowGap: "10px",
+          backgroundColor: "white",
+          width: "300px",
+          margin: "0 auto",
+          borderRadius: "8px",
         }}
       >
-        <Grid container>
+        <Grid
+          container
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
           <form onSubmit={handleSubmit(updateCashe)}>
             <Grid
               sx={{
@@ -73,7 +84,7 @@ const UpdateCashe = ({ open, setOpen, casheId, casheName }) => {
                   }}
                   fullWidth
                 >
-                  Создать кассу
+                  Обновить кассу
                 </Button>
               </Grid>
               <Grid>
