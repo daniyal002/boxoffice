@@ -5,7 +5,7 @@ import useTokenStore from "../../../store/store";
 import { useNavigate } from "react-router-dom";
 
 const useAuthorization = () => {
-  const { setToken, setEmployeeId, setRole } = useTokenStore();
+  const { setToken } = useTokenStore();
   const navigate = useNavigate();
 
   const [error, setError] = useState("");
@@ -13,8 +13,6 @@ const useAuthorization = () => {
     onSuccess: (data) => {
       console.log(data);
       setToken(data.token);
-      setEmployeeId(data.employee_id);
-      setRole(data.role);
       setError();
       navigate("/");
     },

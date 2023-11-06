@@ -7,10 +7,11 @@ import {
   getIncomeById,
   updateIncome,
 } from "../service/Income.service";
+import getAuthToken from "../../../helper/getAuthToken";
 
 const useGetAllIncomes = () => {
   const { data, isError, isLoading } = useQuery(["getAllIncomes"], () =>
-    getAllIncome()
+    getAllIncome(getAuthToken())
   );
   return { data, isError, isLoading };
 };
@@ -19,7 +20,7 @@ const useGetIncomeById = () => {
   const [err, setErr] = useState();
   const { data, isLoading, mutate } = useMutation(
     ["getIncomeById"],
-    (body) => getIncomeById(body),
+    (body) => getIncomeById(body, getAuthToken()),
     {
       onSuccess: () => {
         setErr();
@@ -43,7 +44,7 @@ const useCreateIncome = () => {
   const [err, setErr] = useState();
   const { mutate } = useMutation(
     ["createIncome"],
-    (body) => createIncome(body),
+    (body) => createIncome(body, getAuthToken()),
     {
       onSuccess: () => {
         refreshData();
@@ -67,7 +68,7 @@ const useUpdateIncome = () => {
   const [err, setErr] = useState();
   const { mutate, isLoading } = useMutation(
     ["updateIncome"],
-    (body) => updateIncome(body),
+    (body) => updateIncome(body, getAuthToken()),
     {
       onSuccess: () => {
         refreshData();
@@ -90,7 +91,7 @@ const useDeleteIncome = () => {
   const [err, setErr] = useState();
   const { mutate, isLoading } = useMutation(
     ["deleteIncome"],
-    (IncomeId) => deleteIncome(IncomeId),
+    (IncomeId) => deleteIncome(IncomeId, getAuthToken()),
     {
       onSuccess: () => {
         refreshData();

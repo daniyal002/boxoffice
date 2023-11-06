@@ -18,7 +18,7 @@ const Expense = () => {
   console.log(data);
 
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10); // Количество строк на странице
+  const [rowsPerPage, setRowsPerPage] = useState(5); // Количество строк на странице
   const [open, setOpen] = useState(false);
   const [url, setUrl] = useState(false);
 
@@ -105,6 +105,7 @@ const Expense = () => {
                         variant="contained"
                         color={"error"}
                         onClick={() => handelDeleteExpense(expense.id)}
+                        fullWidth
                       >
                         Удалить
                       </Button>
@@ -117,11 +118,13 @@ const Expense = () => {
         {data && (
           <TablePagination
             component="div"
-            count={data.length} // Общее количество строк
+            count={data ? data.length : 0}
             page={page}
-            onChangePage={handleChangePage}
+            onPageChange={handleChangePage}
             rowsPerPage={rowsPerPage}
             onRowsPerPageChange={handleChangeRowsPerPage}
+            // Добавьте page и rowsPerPageOptions как указано ниже
+            rowsPerPageOptions={[5, 10, 25, 50]} // Это настройки количества строк на странице
           />
         )}
       </TableContainer>

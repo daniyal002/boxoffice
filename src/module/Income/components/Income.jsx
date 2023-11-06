@@ -110,7 +110,13 @@ const Income = () => {
                   <TableCell>{income.amount}₽</TableCell>
                   <TableCell>{income.employee.full_name}</TableCell>
                   <TableCell>{income.timestamp}</TableCell>
-                  <TableCell>
+                  <TableCell
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      rowGap: "10px",
+                    }}
+                  >
                     <Button
                       variant="contained"
                       color="primary"
@@ -123,6 +129,7 @@ const Income = () => {
                           income.timestamp
                         );
                       }}
+                      fullWidth
                     >
                       Изменить
                     </Button>
@@ -130,6 +137,7 @@ const Income = () => {
                       variant="contained"
                       color="secondary"
                       onClick={() => handelDeleteIncome(income.id)}
+                      fullWidth
                     >
                       Удалить
                     </Button>
@@ -141,11 +149,13 @@ const Income = () => {
         {data && (
           <TablePagination
             component="div"
-            count={data.length} // Общее количество строк
+            count={data ? data.length : 0}
             page={page}
-            onChangePage={handleChangePage}
+            onPageChange={handleChangePage}
             rowsPerPage={rowsPerPage}
             onRowsPerPageChange={handleChangeRowsPerPage}
+            // Добавьте page и rowsPerPageOptions как указано ниже
+            rowsPerPageOptions={[5, 10, 25, 50]} // Это настройки количества строк на странице
           />
         )}
       </TableContainer>

@@ -7,10 +7,23 @@ import {
   updateCashe,
 } from "../service/Cashe.service";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import getAuthToken from "../../../helper/getAuthToken";
 
 const useGetAllCashes = () => {
-  const { data, isError, isLoading } = useQuery(["getAllCashes"], () =>
-    getAllCashe()
+  const navigate = useNavigate();
+
+  const { data, isError, isLoading } = useQuery(
+    ["getAllCashes"],
+    () => getAllCashe(getAuthToken()),
+    {
+      onSuccess: () => {},
+      onError: (error) => {
+        if (error.response.status) {
+          navigate("/auth/login");
+        }
+      },
+    }
   );
   return { data, isError, isLoading };
 };
@@ -19,7 +32,7 @@ const useGetCasheById = () => {
   const [err, setErr] = useState();
   const { data, isLoading, mutate } = useMutation(
     ["getCasheById"],
-    (body) => getCasheById(body),
+    (body) => getCasheById(body, getAuthToken()),
     {
       onSuccess: () => {
         setErr();
@@ -41,15 +54,19 @@ const useCreateCashe = () => {
   };
 
   const [err, setErr] = useState();
-  const { mutate } = useMutation(["createCashe"], (body) => createCashe(body), {
-    onSuccess: () => {
-      refreshData();
-      setErr();
-    },
-    onError: (error) => {
-      setErr(error.response?.data?.message);
-    },
-  });
+  const { mutate } = useMutation(
+    ["createCashe"],
+    (body) => createCashe(body, getAuthToken()),
+    {
+      onSuccess: () => {
+        refreshData();
+        setErr();
+      },
+      onError: (error) => {
+        setErr(error.response?.data?.message);
+      },
+    }
+  );
 
   return { err, mutate };
 };
@@ -63,7 +80,7 @@ const useUpdateCashe = () => {
   const [err, setErr] = useState();
   const { mutate, isLoading } = useMutation(
     ["updateCashe"],
-    (body) => updateCashe(body),
+    (body) => updateCashe(body, getAuthToken()),
     {
       onSuccess: () => {
         refreshData();
@@ -86,7 +103,7 @@ const useDeleteCashe = () => {
   const [err, setErr] = useState();
   const { mutate, isLoading } = useMutation(
     ["deleteCashe"],
-    (casheId) => deleteCashe(casheId),
+    (casheId) => deleteCashe(casheId, getAuthToken()),
     {
       onSuccess: () => {
         refreshData();

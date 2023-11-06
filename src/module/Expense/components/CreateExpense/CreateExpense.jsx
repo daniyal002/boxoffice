@@ -18,16 +18,10 @@ import {
 
 const CreateExpense = () => {
   const { handleSubmit, register } = useForm();
-  const { data: cashes } = useGetAllCashes();
   const { data: employees } = useGetAllEmployee();
   const { mutate, err } = useCreateExpense();
 
-  const [cash, setCash] = useState("");
   const [employeeId, setEmployeeId] = useState("");
-
-  const handleChangeCash = (event) => {
-    setCash(event.target.value);
-  };
 
   const handleEmployeeSelect = (event) => {
     setEmployeeId(event.target.value); // Обновите employee_id при выборе значения
@@ -46,6 +40,7 @@ const CreateExpense = () => {
   const CreateExpense = (body) => {
     const updatedBody = {
       ...body,
+      cash_id: "1",
       status: "На согласовании",
       files: uploadedFile,
     };
@@ -56,32 +51,31 @@ const CreateExpense = () => {
   return (
     <div>
       <h1>Создать заявку</h1>
-      <Grid container>
+      <Grid
+        container
+        sx={{
+          justifyContent: "center",
+        }}
+      >
         <form onSubmit={handleSubmit(CreateExpense)}>
-          <Grid>
-            <Grid>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Касса</InputLabel>
-                <Select
-                  {...register("cash_id")}
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={cash}
-                  label="Касса"
-                  onChange={handleChangeCash}
-                >
-                  {cashes &&
-                    cashes.map((cashe) => (
-                      <MenuItem value={cashe.id} key={cashe.id}>
-                        {cashe.name}
-                      </MenuItem>
-                    ))}
-                </Select>
-              </FormControl>
-
+          <Grid
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              rowGap: "10px",
+            }}
+          >
+            <Grid
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "10px",
+              }}
+            >
               <TextField
                 type="number"
                 {...register("amount")}
+                label="Сумма"
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">₽</InputAdornment>
@@ -110,7 +104,17 @@ const CreateExpense = () => {
               </FormControl>
 
               <TextField type="datetime-local" {...register("timestamp")} />
-              <TextareaAutosize {...register("reason")} />
+              <TextareaAutosize
+                {...register("reason")}
+                placeholder="Основание"
+                style={{
+                  width: "400px",
+                  height: "100px",
+                  resize: "vertical",
+                  padding: "3px",
+                }}
+              />
+
               <TextField type="file" onChange={handleFileChange} />
             </Grid>
 

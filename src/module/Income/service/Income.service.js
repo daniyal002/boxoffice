@@ -1,44 +1,56 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 
-const token = Cookies.get("token");
-axios.defaults.baseURL = "http://localhost:3030";
-if (token) {
-  axios.defaults.headers = {
-    Authorization: `${token}`,
-  };
-}
+axios.defaults.baseURL = "http://192.168.30.217:3030";
+// if (token) {
+//   axios.defaults.headers = {
+//     Authorization: `${token}`,
+//   };
+// }
 
-const getAllIncome = async () => {
-  return axios.get("/income/getAllIncomes").then((response) => response.data);
-};
-
-const getIncomeById = async (body) => {
+const getAllIncome = async (token) => {
   return axios
-    .post("/income/getIncomeById", { id: body })
+    .get("/income/getAllIncomes", { headers: { Authorization: token } })
     .then((response) => response.data);
 };
 
-const createIncome = async (body) => {
+const getIncomeById = async (body, token) => {
   return axios
-    .post("/income/createIncome", {
-      cash_id: body.cashe_id,
-      amount: parseInt(body.amount),
-      employee_id: body.employee_id,
-      timestamp: body.timestamp,
-    })
+    .post(
+      "/income/getIncomeById",
+      { id: body },
+      { headers: { Authorization: token } }
+    )
     .then((response) => response.data);
 };
 
-const updateIncome = async (body) => {
+const createIncome = async (body, token) => {
   return axios
-    .put("/income/updateIncome", body)
+    .post(
+      "/income/createIncome",
+      {
+        cash_id: body.cashe_id,
+        amount: parseInt(body.amount),
+        employee_id: body.employee_id,
+        timestamp: body.timestamp,
+      },
+      { headers: { Authorization: token } }
+    )
     .then((response) => response.data);
 };
 
-const deleteIncome = async (IncomeId) => {
+const updateIncome = async (body, token) => {
   return axios
-    .post("/income/deleteIncome", { id: IncomeId })
+    .put("/income/updateIncome", body, { headers: { Authorization: token } })
+    .then((response) => response.data);
+};
+
+const deleteIncome = async (IncomeId, token) => {
+  return axios
+    .post(
+      "/income/deleteIncome",
+      { id: IncomeId },
+      { headers: { Authorization: token } }
+    )
     .then((response) => response.data);
 };
 

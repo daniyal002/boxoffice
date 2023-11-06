@@ -29,6 +29,9 @@ const CreateIncome = ({ open, setOpen }) => {
 
   const createIncome = (body) => {
     mutate(body);
+    if (body.cashe_id != "1") {
+      mutate({ ...body, cashe_id: "1" });
+    }
     handleClose();
     console.log(body);
   };
@@ -42,7 +45,6 @@ const CreateIncome = ({ open, setOpen }) => {
 
   const handleEmployeeSelect = (event) => {
     setEmployeeId(event.target.value); // Обновите employee_id при выборе значения
-    console.log(event.target.value);
   };
 
   return (

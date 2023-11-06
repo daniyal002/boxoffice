@@ -9,10 +9,11 @@ import {
   updateExpense,
   updateExpenseStatus,
 } from "../service/Expense.service";
+import getAuthToken from "../../../helper/getAuthToken";
 
 const useGetAllExpenses = () => {
   const { data, isError, isLoading } = useQuery(["getAllExpenses"], () =>
-    getAllExpense()
+    getAllExpense(getAuthToken())
   );
 
   return { data, isError, isLoading };
@@ -22,7 +23,7 @@ const useGetExpenseById = () => {
   const [err, setErr] = useState();
   const { data, isLoading, mutate } = useMutation(
     ["getExpenseById"],
-    (body) => getExpenseById(body),
+    (body) => getExpenseById(body, getAuthToken()),
     {
       onSuccess: () => {
         setErr();
@@ -46,7 +47,7 @@ const useCreateExpense = () => {
   const [err, setErr] = useState();
   const { mutate } = useMutation(
     ["createExpense"],
-    (body) => createExpense(body),
+    (body) => createExpense(body, getAuthToken()),
     {
       onSuccess: () => {
         refreshData();
@@ -70,7 +71,7 @@ const useSpendFromCash = () => {
   const [err, setErr] = useState();
   const { mutate, isLoading } = useMutation(
     ["spendFromCash"],
-    (body) => spendFromCash(body),
+    (body) => spendFromCash(body, getAuthToken()),
     {
       onSuccess: () => {
         refreshData();
@@ -93,7 +94,7 @@ const useUpdateExpense = () => {
   const [err, setErr] = useState();
   const { mutate, isLoading } = useMutation(
     ["updateExpense"],
-    (body) => updateExpense(body),
+    (body) => updateExpense(body, getAuthToken()),
     {
       onSuccess: () => {
         refreshData();
@@ -116,7 +117,7 @@ const useUpdateExpenseStatus = () => {
   const [err, setErr] = useState();
   const { mutate, isLoading } = useMutation(
     ["updateExpenseStatus"],
-    (body) => updateExpenseStatus(body),
+    (body) => updateExpenseStatus(body, getAuthToken()),
     {
       onSuccess: () => {
         refreshData();
@@ -139,7 +140,7 @@ const useDeleteExpense = () => {
   const [err, setErr] = useState();
   const { mutate, isLoading } = useMutation(
     ["deleteExpense"],
-    (ExpenseId) => deleteExpense(ExpenseId),
+    (ExpenseId) => deleteExpense(ExpenseId, getAuthToken()),
     {
       onSuccess: () => {
         refreshData();

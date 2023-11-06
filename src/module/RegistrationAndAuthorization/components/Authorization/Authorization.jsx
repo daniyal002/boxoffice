@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Grid, TextField } from "@mui/material";
+import { Alert, Button, Grid, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useAuthorization } from "../../hook/useAuthorization";
 
@@ -35,6 +35,8 @@ const Authorization = () => {
             sx={{
               display: "flex",
               columnGap: "10px",
+              flexDirection: { xs: "column", sm: "row" },
+              rowGap: "10px",
             }}
           >
             <TextField
@@ -63,20 +65,16 @@ const Authorization = () => {
               Войти
             </Button>
           </Grid>
+
           {error && (
-            <Grid
-              xs={12}
+            <Alert
+              severity="error"
               sx={{
-                textAlign: "center",
-                bgcolor: "red",
-                padding: "8px",
-                borderRadius: "8px",
-                color: "white",
-                textTransform: "uppercase",
+                justifyContent: "center",
               }}
             >
-              <p>{error}</p>
-            </Grid>
+              {error}
+            </Alert>
           )}
         </Grid>
       </form>

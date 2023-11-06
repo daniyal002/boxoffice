@@ -1,25 +1,24 @@
 import axios from "axios";
-import Cookies from "js-cookie";
 
-const token = Cookies.get("token");
-axios.defaults.baseURL = "http://localhost:3030";
-if (token) {
-  axios.defaults.headers = {
-    Authorization: `${token}`,
-  };
-}
+axios.defaults.baseURL = "http://192.168.30.217:3030";
 
-const getAllExpense = async () => {
-  return axios.get("/expense/getAllExpenses").then((response) => response.data);
-};
-
-const getExpenseById = async (body) => {
+const getAllExpense = async (token) => {
   return axios
-    .post("/expense/getExpenseById", { id: body })
+    .get("/expense/getAllExpenses", { headers: { Authorization: token } })
     .then((response) => response.data);
 };
 
-const createExpense = async (body) => {
+const getExpenseById = async (body, token) => {
+  return axios
+    .post(
+      "/expense/getExpenseById",
+      { id: body },
+      { headers: { Authorization: token } }
+    )
+    .then((response) => response.data);
+};
+
+const createExpense = async (body, token) => {
   const formData = new FormData();
   formData.append("cash_id", body.cash_id);
   formData.append("amount", parseInt(body.amount));
@@ -36,30 +35,39 @@ const createExpense = async (body) => {
     .post("/expense/createExpense", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
+        Authorization: token,
       },
     })
     .then((response) => response.data);
 };
 
-const spendFromCash = async (body) => {
-  return axios.post("/expense/spendFromCash", body);
+const spendFromCash = async (body, token) => {
+  return axios.post("/expense/spendFromCash", body, {
+    headers: { Authorization: token },
+  });
 };
 
-const updateExpense = async (body) => {
+const updateExpense = async (body, token) => {
   return axios
-    .put("/expense/updateExpense", body)
+    .put("/expense/updateExpense", body, { headers: { Authorization: token } })
     .then((response) => response.data);
 };
 
-const updateExpenseStatus = async (body) => {
+const updateExpenseStatus = async (body, token) => {
   return axios
-    .put("/expense/updateExpenseStatus", body)
+    .put("/expense/updateExpenseStatus", body, {
+      headers: { Authorization: token },
+    })
     .then((response) => response.data);
 };
 
-const deleteExpense = async (ExpenseId) => {
+const deleteExpense = async (ExpenseId, token) => {
   return axios
-    .post("/expense/deleteExpense", { id: ExpenseId })
+    .post(
+      "/expense/deleteExpense",
+      { id: ExpenseId },
+      { headers: { Authorization: token } }
+    )
     .then((response) => response.data);
 };
 

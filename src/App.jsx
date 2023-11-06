@@ -2,6 +2,7 @@ import "./App.css";
 import Header from "./components/Header";
 import PrivateRoute from "./components/PrivateRoutes";
 import Cashe from "./module/Cashe/components/Cashe";
+import Employee from "./module/Employee/components/Employee";
 import CancelExpense from "./module/Expense/components/CancelExpense/CancelExpense";
 import CreateExpense from "./module/Expense/components/CreateExpense/CreateExpense";
 import Expense from "./module/Expense/components/Expense";
@@ -10,11 +11,15 @@ import WaitingExpense from "./module/Expense/components/WaitingExpense/WaitingEx
 import Income from "./module/Income/components/Income";
 import Authorization from "./module/RegistrationAndAuthorization/components/Authorization/Authorization";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Registration from "./module/RegistrationAndAuthorization/components/Registration/Registration";
 function App() {
   return (
     <>
       <BrowserRouter>
-        <Header />
+        <PrivateRoute>
+          <Header />
+        </PrivateRoute>
+
         <Routes>
           <Route
             path="/"
@@ -74,7 +79,17 @@ function App() {
               </PrivateRoute>
             }
           />
+
+          <Route
+            path="/employee"
+            element={
+              <PrivateRoute>
+                <Employee />
+              </PrivateRoute>
+            }
+          />
           <Route path="/auth/login" element={<Authorization />} />
+          <Route path="/auth/register" element={<Registration />} />
         </Routes>
       </BrowserRouter>
     </>
