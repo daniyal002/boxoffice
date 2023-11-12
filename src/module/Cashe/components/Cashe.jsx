@@ -12,6 +12,7 @@ import {
   Button,
   Grid,
   Typography,
+  Alert,
 } from "@mui/material";
 import UpdateCashe from "./UpdateCashe/UpdateCashe";
 import TablePagination from "@mui/material/TablePagination";
@@ -58,17 +59,17 @@ const Cashe = () => {
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
 
   let displayedData = [];
+  let mainCahse = [];
 
   if (data) {
     displayedData = data
+      .filter((income) => income.id !== 1)
       .slice() // Клонируем данные, чтобы избежать изменения исходного массива
       .slice(indexOfFirstRow, indexOfLastRow);
+
+    mainCahse = data.filter((income) => income.id === 1);
   }
 
-  let totalBalance;
-  if (data) {
-    totalBalance = data.reduce((total, cashe) => total + cashe.balance, 0);
-  }
   return (
     <div>
       {token && (
@@ -100,6 +101,21 @@ const Cashe = () => {
           >
             Обнулить кассы
           </Button>
+          <Grid>
+            {mainCahse.map((cahse) => (
+              <>
+                <Alert
+                  severity="success"
+                  sx={{
+                    justifyContent: "center",
+                    fontSize: "32px",
+                  }}
+                >
+                  Общий баланс касс: {cahse.balance}₽
+                </Alert>
+              </>
+            ))}
+          </Grid>
           <TableContainer
             component={Paper}
             sx={{ margin: "0 auto", maxWidth: "800px", overflowX: "auto" }}
@@ -164,19 +180,6 @@ const Cashe = () => {
               />
             )}
           </TableContainer>
-          <Typography
-            variant="h6"
-            sx={{
-              maxWidth: "750px",
-              margin: "20px auto",
-              padding: "10px",
-              borderRadius: "8px",
-              textAlign: "center",
-              backgroundColor: "#e0e0e0",
-            }}
-          >
-            Общая Сумма: {totalBalance}₽
-          </Typography>
         </Grid>
       )}
     </div>

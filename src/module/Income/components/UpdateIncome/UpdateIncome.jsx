@@ -140,14 +140,14 @@ const UpdateIncome = ({
                 />
                 <FormControl fullWidth>
                   <InputLabel id="Employee-simple-select-label">
-                    Инициатор
+                    Кассир
                   </InputLabel>
                   <Select
                     {...register("employee_id")}
                     labelId="Employee-simple-select-label"
                     id="Employee-simple-select"
                     defaultValue={selctEmployeeId}
-                    label="Инициатор"
+                    label="Кассир"
                     onChange={handleEmployeeSelect}
                   >
                     {employees &&

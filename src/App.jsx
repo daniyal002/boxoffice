@@ -12,6 +12,7 @@ import Income from "./module/Income/components/Income";
 import Authorization from "./module/RegistrationAndAuthorization/components/Authorization/Authorization";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Registration from "./module/RegistrationAndAuthorization/components/Registration/Registration";
+import ExpenseReports from "./module/Expense/components/ExpenseReports/ExpenseReports";
 function App() {
   return (
     <>
@@ -88,8 +89,23 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/register"
+            element={
+              <PrivateRoute>
+                <Registration />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/expensereports"
+            element={
+              <PrivateRoute>
+                <ExpenseReports />
+              </PrivateRoute>
+            }
+          />
           <Route path="/auth/login" element={<Authorization />} />
-          <Route path="/auth/register" element={<Registration />} />
         </Routes>
       </BrowserRouter>
     </>

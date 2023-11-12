@@ -13,6 +13,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  Typography,
 } from "@mui/material";
 import RUpdateExpense from "./UpdateExpense/RUpdateExpense";
 import OpenImage from "../OpenImage/OpenImage";
@@ -22,6 +23,8 @@ const CanselExpense = () => {
   const [selectedIncomeId, setSelectedIncomeId] = useState();
   const [selectedCashId, setSelectedCashId] = useState();
   const [selectedAmount, setSelectedAmount] = useState();
+  const [selectedRegisterNumber, setSelectedRegisterNumber] = useState();
+
   const [selectedEmployeeId, setSelectedEmployeeId] = useState();
   const [selectedTimestamp, setSelectedTimestamp] = useState();
   const [selectedReason, setSelectedReason] = useState();
@@ -30,6 +33,7 @@ const CanselExpense = () => {
   const [rowsPerPage, setRowsPerPage] = useState(5); // Количество строк на странице
 
   const handleOpenUpdate = (
+    registerNumber,
     id,
     cash_id,
     employee_id,
@@ -38,6 +42,7 @@ const CanselExpense = () => {
     reason
   ) => {
     setOpenUpdate(true);
+    setSelectedRegisterNumber(registerNumber);
     setSelectedIncomeId(id);
     setSelectedCashId(cash_id);
     setSelectedEmployeeId(employee_id);
@@ -103,12 +108,23 @@ const CanselExpense = () => {
         open={openUpdate}
         setOpen={setOpenUpdate}
         incomeId={selectedIncomeId}
+        selectedRegisterNumber={selectedRegisterNumber}
         selectedCashId={selectedCashId}
         selectedAmount={selectedAmount}
         selectedEmployeeId={selectedEmployeeId}
         selectedTimestamp={selectedTimestamp}
         selectedReason={selectedReason}
       />
+      <Typography
+        variant="h4"
+        sx={{
+          color: "red",
+          textAlign: "center",
+          margin: "10px auto",
+        }}
+      >
+        Отклоненные Заявки
+      </Typography>
       <TableContainer
         component={Paper}
         sx={{ margin: "0 auto", maxWidth: "1000px", overflowX: "auto" }}
@@ -135,7 +151,7 @@ const CanselExpense = () => {
             {displayedData &&
               displayedData.map((expense) => (
                 <TableRow key={expense.id}>
-                  <TableCell>{expense.id}</TableCell>
+                  <TableCell>{expense.registerNumber}</TableCell>
                   <TableCell>{expense.cashes.name}</TableCell>
                   <TableCell>{expense.employee.full_name}</TableCell>
                   <TableCell>{expense.amount}₽</TableCell>
@@ -143,7 +159,7 @@ const CanselExpense = () => {
                   <TableCell>{expense.timestamp}</TableCell>
                   <TableCell>
                     <img
-                      src={`http://localhost:3030/${expense.imagePaths[0]}`}
+                      src={`http://192.168.30.217:3030/${expense.imagePaths[0]}`}
                       alt={expense.imagePaths[0]}
                       width={100}
                       onClick={() => handleOpen(expense.imagePaths[0])} // Открывайте окно при клике
@@ -173,6 +189,7 @@ const CanselExpense = () => {
                       color="success"
                       onClick={() =>
                         handleOpenUpdate(
+                          expense.registerNumber,
                           expense.id,
                           expense.cash_id,
                           expense.employee_id,

@@ -62,6 +62,9 @@ const Header = () => {
           { text: "Согласованные заявки", link: "/successexpense" },
           { text: "Отклоненные заявки", link: "/cancelexpense" },
           { text: "Сотрудники", link: "/employee" },
+          { text: "Регистрация", link: "/register" },
+          { text: "Отчеты по приходу", link: "/register" },
+          { text: "Отчеты по расходу", link: "/expensereports" },
         ];
 
       case "Director":

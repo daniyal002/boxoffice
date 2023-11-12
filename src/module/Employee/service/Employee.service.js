@@ -1,13 +1,13 @@
 import axios from "axios";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 
-const token = Cookies.get("token");
+// const token = Cookies.get("token");
 axios.defaults.baseURL = "http://192.168.30.217:3030";
-if (token) {
-  axios.defaults.headers = {
-    Authorization: `${token}`,
-  };
-}
+// if (token) {
+//   axios.defaults.headers = {
+//     Authorization: `${token}`,
+//   };
+// }
 
 const getAllEmployee = async (token) => {
   return axios

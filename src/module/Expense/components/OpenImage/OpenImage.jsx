@@ -17,7 +17,7 @@ const OpenImage = ({ open, setOpen, url }) => {
         </DialogTitle>
         <DialogContent>
           <img
-            src={`http://localhost:3030/${url}`}
+            src={`http://192.168.30.217:3030/${url}`}
             alt={url}
             width={1000} // Установите ширину по вашему усмотрению
           />

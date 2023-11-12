@@ -21,6 +21,7 @@ const RUpdateExpense = ({
   open,
   setOpen,
   incomeId,
+  selectedRegisterNumber,
   selectedCashId,
   selectedAmount,
   selectedEmployeeId,
@@ -56,6 +57,7 @@ const RUpdateExpense = ({
     mutate({
       ...body,
       id: incomeId,
+      registerNumber: selectedRegisterNumber,
       amount: updatedAmount,
       timestamp: updatedTimestamp,
       reason: updatedReason,

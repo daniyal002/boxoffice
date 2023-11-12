@@ -7,7 +7,6 @@ import {
 import {
   Alert,
   Button,
-  Grid,
   Paper,
   Table,
   TableBody,
@@ -16,6 +15,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  Typography,
 } from "@mui/material";
 import OpenImage from "../OpenImage/OpenImage";
 
@@ -88,10 +88,19 @@ const SuccessExpense = () => {
   return (
     <>
       <OpenImage open={open} setOpen={setOpen} url={url} />
-      <h1>Согласованные заявки</h1>
+      <Typography
+        variant="h4"
+        sx={{
+          color: "green",
+          textAlign: "center",
+          margin: "10px auto",
+        }}
+      >
+        Согласованные заявки
+      </Typography>
       <TableContainer
         component={Paper}
-        sx={{ margin: "0 auto", maxWidth: "1000px", overflowX: "auto" }}
+        sx={{ margin: "0 auto", maxWidth: "1200px", overflowX: "auto" }}
       >
         <Table>
           <TableHead
@@ -102,8 +111,9 @@ const SuccessExpense = () => {
             <TableRow>
               <TableCell>№</TableCell>
               <TableCell>Касса</TableCell>
-              <TableCell>Сотрудник</TableCell>
               <TableCell>Сумма</TableCell>
+              <TableCell>Сумма в кассе</TableCell>
+              <TableCell>Сотрудник</TableCell>
               <TableCell>Основание</TableCell>
               <TableCell>Время</TableCell>
               <TableCell>Скан</TableCell>
@@ -115,15 +125,16 @@ const SuccessExpense = () => {
             {displayedData &&
               displayedData.map((expense) => (
                 <TableRow key={expense.id}>
-                  <TableCell>{expense.id}</TableCell>
+                  <TableCell>{expense.registerNumber}</TableCell>
                   <TableCell>{expense.cashes.name}</TableCell>
-                  <TableCell>{expense.employee.full_name}</TableCell>
                   <TableCell>{expense.amount}₽</TableCell>
+                  <TableCell>{expense.cashes.balance}₽</TableCell>
+                  <TableCell>{expense.employee.full_name}</TableCell>
                   <TableCell>{expense.reason}</TableCell>
                   <TableCell>{expense.timestamp}</TableCell>
                   <TableCell>
                     <img
-                      src={`http://localhost:3030/${expense.imagePaths[0]}`}
+                      src={`http://192.168.30.217:3030/${expense.imagePaths[0]}`}
                       alt={expense.imagePaths[0]}
                       width={100}
                       onClick={() => handleOpen(expense.imagePaths[0])} // Открывайте окно при клике

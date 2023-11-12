@@ -14,6 +14,7 @@ import {
   Select,
   TextField,
   TextareaAutosize,
+  Typography,
 } from "@mui/material";
 
 const CreateExpense = () => {
@@ -50,7 +51,16 @@ const CreateExpense = () => {
 
   return (
     <div>
-      <h1>Создать заявку</h1>
+      <Typography
+        variant="h4"
+        sx={{
+          color: "#2196f3",
+          textAlign: "center",
+          margin: "10px auto",
+        }}
+      >
+        Создание заявку
+      </Typography>
       <Grid
         container
         sx={{
@@ -74,6 +84,15 @@ const CreateExpense = () => {
             >
               <TextField
                 type="number"
+                {...register("registerNumber")}
+                label="Регистрационный номер"
+                sx={{
+                  width: "90%",
+                }}
+                required
+              />
+              <TextField
+                type="number"
                 {...register("amount")}
                 label="Сумма"
                 InputProps={{
@@ -81,18 +100,24 @@ const CreateExpense = () => {
                     <InputAdornment position="end">₽</InputAdornment>
                   ),
                 }}
+                sx={{
+                  width: "90%",
+                }}
               />
               <FormControl fullWidth>
                 <InputLabel id="Employee-simple-select-label">
-                  Инициатор
+                  Сотрудник
                 </InputLabel>
                 <Select
                   {...register("employee_id")}
                   labelId="Employee-simple-select-label"
                   id="Employee-simple-select"
                   value={employeeId} // Используйте значение employeeId
-                  label="Инициатор"
+                  label="Сотрудник"
                   onChange={handleEmployeeSelect} // Обновляйте employeeId при изменении
+                  sx={{
+                    width: "90%",
+                  }}
                 >
                   {employees &&
                     employees.map((employee) => (
@@ -103,19 +128,31 @@ const CreateExpense = () => {
                 </Select>
               </FormControl>
 
-              <TextField type="datetime-local" {...register("timestamp")} />
+              <TextField
+                type="datetime-local"
+                {...register("timestamp")}
+                sx={{
+                  width: "90%",
+                }}
+              />
               <TextareaAutosize
                 {...register("reason")}
                 placeholder="Основание"
                 style={{
-                  width: "400px",
+                  width: "88%",
                   height: "100px",
                   resize: "vertical",
                   padding: "3px",
                 }}
               />
 
-              <TextField type="file" onChange={handleFileChange} />
+              <TextField
+                type="file"
+                onChange={handleFileChange}
+                sx={{
+                  width: "90%",
+                }}
+              />
             </Grid>
 
             <Grid>
@@ -128,40 +165,24 @@ const CreateExpense = () => {
                     backgroundColor: "blueviolet",
                   },
                   border: 0,
+                  width: "90%",
                 }}
-                fullWidth
               >
                 Создать Расход
               </Button>
             </Grid>
-
             {err && (
-              <Grid
-                xs={12}
+              <Alert
+                severity="error"
                 sx={{
-                  textAlign: "center",
-                  bgcolor: "red",
-                  padding: "8px",
-                  borderRadius: "8px",
-                  color: "white",
-                  textTransform: "uppercase",
+                  justifyContent: "center",
                 }}
               >
-                <p>{err}</p>
-              </Grid>
+                {err}
+              </Alert>
             )}
           </Grid>
         </form>
-        {err && (
-          <Alert
-            severity="error"
-            sx={{
-              justifyContent: "center",
-            }}
-          >
-            {err}
-          </Alert>
-        )}
       </Grid>
     </div>
   );

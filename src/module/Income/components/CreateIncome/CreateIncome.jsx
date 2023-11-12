@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useCreateIncome } from "../../hook/useIncome";
 import {
@@ -116,14 +116,14 @@ const CreateIncome = ({ open, setOpen }) => {
                 />
                 <FormControl fullWidth>
                   <InputLabel id="Employee-simple-select-label">
-                    Инициатор
+                    Кассир
                   </InputLabel>
                   <Select
                     {...register("employee_id")}
                     labelId="Employee-simple-select-label"
                     id="Employee-simple-select"
                     value={employeeId} // Используйте значение employeeId
-                    label="Инициатор"
+                    label="Кассир"
                     onChange={handleEmployeeSelect} // Обновляйте employeeId при изменении
                   >
                     {employees &&

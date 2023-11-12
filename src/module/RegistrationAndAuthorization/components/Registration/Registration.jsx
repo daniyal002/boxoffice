@@ -16,19 +16,12 @@ import { useAuthorization } from "../../hook/useAuthorization";
 
 const Registration = () => {
   const { mutate: Reg, error: errorReg, data: dataReg } = useRegistration();
-  const { mutate: Auth, error: errorAuth } = useAuthorization();
 
   const { data: employees } = useGetAllEmployee();
   const { handleSubmit, register } = useForm();
 
   const reg = (body) => {
     Reg(body);
-    const authBody = { login: body.login, password: body.password };
-    if (!errorReg) {
-      setTimeout(() => {
-        Auth(authBody);
-      }, 1000);
-    }
   };
 
   const [role, setRole] = useState("");

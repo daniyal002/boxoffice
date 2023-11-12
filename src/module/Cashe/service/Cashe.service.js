@@ -5,9 +5,9 @@ const token = Cookies.get("token");
 
 axios.defaults.baseURL = "http://192.168.30.217:3030";
 // if (token) {
-//   axios.defaults.headers = {
-//     Authorization: `${token}`,
-//   };
+axios.defaults.headers = {
+  "ngrok-skip-browser-warning": "true",
+};
 // }
 
 const getAllCashe = async (token) => {

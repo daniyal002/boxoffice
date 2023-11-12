@@ -58,7 +58,9 @@ const Income = () => {
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   let displayedData;
   if (data) {
-    displayedData = data.slice(indexOfFirstRow, indexOfLastRow);
+    displayedData = data
+      .filter((income) => income.cash_id !== 1)
+      .slice(indexOfFirstRow, indexOfLastRow);
   }
   return (
     <div>
@@ -96,7 +98,7 @@ const Income = () => {
               <TableCell>№</TableCell>
               <TableCell>Касса</TableCell>
               <TableCell>Сумма</TableCell>
-              <TableCell>Инициатор</TableCell>
+              <TableCell>Кассир</TableCell>
               <TableCell>Время прихода</TableCell>
               <TableCell>Действие</TableCell>
             </TableRow>
@@ -130,14 +132,16 @@ const Income = () => {
                         );
                       }}
                       fullWidth
+                      disabled
                     >
                       Изменить
                     </Button>
                     <Button
                       variant="contained"
-                      color="secondary"
+                      color="error"
                       onClick={() => handelDeleteIncome(income.id)}
                       fullWidth
+                      disabled
                     >
                       Удалить
                     </Button>
