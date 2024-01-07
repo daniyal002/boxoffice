@@ -1,5 +1,6 @@
 import { Dialog, DialogContent, DialogTitle, IconButton } from "@mui/material";
 import React from "react";
+import { BASE_URL } from '../../../../../env';
 
 const OpenImage = ({ open, setOpen, url }) => {
   console.log(url);
@@ -17,7 +18,7 @@ const OpenImage = ({ open, setOpen, url }) => {
         </DialogTitle>
         <DialogContent>
           <img
-            src={`http://192.168.30.217:3030/${url}`}
+            src={`${BASE_URL}/${url}`}
             alt={url}
             width={1000} // Установите ширину по вашему усмотрению
           />

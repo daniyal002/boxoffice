@@ -1,10 +1,11 @@
-import axios from "axios";
+import axios from 'axios';
+import { BASE_URL } from '../../env';
 
-axios.defaults.baseURL = "http://192.168.30.217:3030";
+axios.defaults.baseURL = BASE_URL;
 
 const resetBalance = async (token) => {
   return axios
-    .post("/expense/resetBalance", { headers: { Authorization: token } })
+    .post('/expense/resetBalance', { headers: { Authorization: token } })
     .then((response) => response.data);
 };
 

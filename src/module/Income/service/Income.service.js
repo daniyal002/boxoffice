@@ -1,6 +1,8 @@
-import axios from "axios";
+import axios from 'axios';
+import { BASE_URL } from '../../../../env';
 
-axios.defaults.baseURL = "http://192.168.30.217:3030";
+axios.defaults.baseURL = BASE_URL;
+
 // if (token) {
 //   axios.defaults.headers = {
 //     Authorization: `${token}`,
@@ -9,14 +11,14 @@ axios.defaults.baseURL = "http://192.168.30.217:3030";
 
 const getAllIncome = async (token) => {
   return axios
-    .get("/income/getAllIncomes", { headers: { Authorization: token } })
+    .get('/income/getAllIncomes', { headers: { Authorization: token } })
     .then((response) => response.data);
 };
 
 const getIncomeById = async (body, token) => {
   return axios
     .post(
-      "/income/getIncomeById",
+      '/income/getIncomeById',
       { id: body },
       { headers: { Authorization: token } }
     )
@@ -26,7 +28,7 @@ const getIncomeById = async (body, token) => {
 const createIncome = async (body, token) => {
   return axios
     .post(
-      "/income/createIncome",
+      '/income/createIncome',
       {
         cash_id: body.cashe_id,
         amount: parseInt(body.amount),
@@ -40,14 +42,14 @@ const createIncome = async (body, token) => {
 
 const updateIncome = async (body, token) => {
   return axios
-    .put("/income/updateIncome", body, { headers: { Authorization: token } })
+    .put('/income/updateIncome', body, { headers: { Authorization: token } })
     .then((response) => response.data);
 };
 
 const deleteIncome = async (IncomeId, token) => {
   return axios
     .post(
-      "/income/deleteIncome",
+      '/income/deleteIncome',
       { id: IncomeId },
       { headers: { Authorization: token } }
     )

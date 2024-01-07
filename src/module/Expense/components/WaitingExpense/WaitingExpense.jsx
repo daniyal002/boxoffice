@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   useGetAllExpenses,
   useUpdateExpenseStatus,
-} from "../../hook/useExpense";
+} from '../../hook/useExpense';
 import {
   Button,
   Paper,
@@ -13,9 +13,10 @@ import {
   TableHead,
   TableRow,
   Typography,
-} from "@mui/material";
-import TablePagination from "@mui/material/TablePagination";
-import OpenImage from "../OpenImage/OpenImage";
+} from '@mui/material';
+import TablePagination from '@mui/material/TablePagination';
+import OpenImage from '../OpenImage/OpenImage';
+import { BASE_URL } from '../../../../../env';
 
 const WaitingExpense = () => {
   const { mutate } = useUpdateExpenseStatus();
@@ -44,7 +45,7 @@ const WaitingExpense = () => {
   useEffect(() => {
     if (data) {
       const pendingExpenses = data.filter(
-        (expense) => expense.status === "На согласовании"
+        (expense) => expense.status === 'На согласовании'
       );
       console.log(data);
       setArrayExpense(pendingExpenses);
@@ -68,7 +69,7 @@ const WaitingExpense = () => {
 
   if (data) {
     displayedData = data
-      .filter((expense) => expense.status === "На согласовании")
+      .filter((expense) => expense.status === 'На согласовании')
       .slice() // Клонируем данные, чтобы избежать изменения исходного массива
       .slice(indexOfFirstRow, indexOfLastRow);
   }
@@ -78,21 +79,21 @@ const WaitingExpense = () => {
       <Typography
         variant="h4"
         sx={{
-          color: "yellow",
-          textAlign: "center",
-          margin: "10px auto",
+          color: 'yellow',
+          textAlign: 'center',
+          margin: '10px auto',
         }}
       >
         Заявки на согласовании
       </Typography>
       <TableContainer
         component={Paper}
-        sx={{ margin: "0 auto", maxWidth: "1000px", overflowX: "auto" }}
+        sx={{ margin: '0 auto', maxWidth: '1000px', overflowX: 'auto' }}
       >
         <Table>
           <TableHead
             sx={{
-              backgroundColor: "#e0e0e0",
+              backgroundColor: '#e0e0e0',
             }}
           >
             <TableRow>
@@ -121,25 +122,25 @@ const WaitingExpense = () => {
                   <TableCell>{expense.timestamp}</TableCell>
                   <TableCell>
                     <img
-                      src={`http://192.168.30.217:3030/${expense.imagePaths[0]}`}
+                      src={`${BASE_URL}/${expense.imagePaths[0]}`}
                       alt={expense.imagePaths[0]}
                       width={100}
                       onClick={() => handleOpen(expense.imagePaths[0])} // Открывайте окно при клике
-                      style={{ cursor: "pointer" }} // Стиль указывающий на кликабельность
+                      style={{ cursor: 'pointer' }} // Стиль указывающий на кликабельность
                     />
                   </TableCell>
                   <TableCell>{expense.status}</TableCell>
                   <TableCell
                     sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      rowGap: "10px",
+                      display: 'flex',
+                      flexDirection: 'column',
+                      rowGap: '10px',
                     }}
                   >
                     <Button
                       variant="contained"
                       color="success"
-                      onClick={() => updateStatus(expense.id, "Согласовано")}
+                      onClick={() => updateStatus(expense.id, 'Согласовано')}
                       fullWidth
                     >
                       Согласовать
@@ -147,7 +148,7 @@ const WaitingExpense = () => {
                     <Button
                       variant="contained"
                       color="error"
-                      onClick={() => updateStatus(expense.id, "Отколонено")}
+                      onClick={() => updateStatus(expense.id, 'Отколонено')}
                       fullWidth
                     >
                       Отклонить

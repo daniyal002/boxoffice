@@ -13,6 +13,7 @@ import {
 import TablePagination from "@mui/material/TablePagination";
 import { useState } from "react";
 import OpenImage from "./OpenImage/OpenImage";
+import { BASE_URL } from '../../../../env';
 
 // Устанавливаем заголовок по умолчанию
 
@@ -105,7 +106,7 @@ const Expense = () => {
                     <TableCell>{expense.timestamp}</TableCell>
                     <TableCell>
                       <img
-                        src={`http://192.168.30.217:3030/${expense.imagePaths[0]}`}
+                        src={`${BASE_URL}/${expense.imagePaths[0]}`}
                         alt={expense.imagePaths[0]}
                         width={100}
                         onClick={() => handleOpen(expense.imagePaths[0])} // Открывайте окно при клике

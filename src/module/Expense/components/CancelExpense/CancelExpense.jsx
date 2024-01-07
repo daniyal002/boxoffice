@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   useGetAllExpenses,
   useUpdateExpenseStatus,
-} from "../../hook/useExpense";
+} from '../../hook/useExpense';
 import {
   Button,
   Paper,
@@ -14,9 +14,10 @@ import {
   TablePagination,
   TableRow,
   Typography,
-} from "@mui/material";
-import RUpdateExpense from "./UpdateExpense/RUpdateExpense";
-import OpenImage from "../OpenImage/OpenImage";
+} from '@mui/material';
+import RUpdateExpense from './UpdateExpense/RUpdateExpense';
+import OpenImage from '../OpenImage/OpenImage';
+import { BASE_URL } from '../../../../../env';
 
 const CanselExpense = () => {
   const [openUpdate, setOpenUpdate] = useState(false);
@@ -73,7 +74,7 @@ const CanselExpense = () => {
   useEffect(() => {
     if (data) {
       const pendingExpenses = data.filter(
-        (expense) => expense.status === "Отколонено"
+        (expense) => expense.status === 'Отколонено'
       );
       console.log(data);
       setArrayExpense(pendingExpenses);
@@ -97,7 +98,7 @@ const CanselExpense = () => {
 
   if (data) {
     displayedData = data
-      .filter((expense) => expense.status === "Отколонено")
+      .filter((expense) => expense.status === 'Отколонено')
       .slice() // Клонируем данные, чтобы избежать изменения исходного массива
       .slice(indexOfFirstRow, indexOfLastRow);
   }
@@ -118,21 +119,21 @@ const CanselExpense = () => {
       <Typography
         variant="h4"
         sx={{
-          color: "red",
-          textAlign: "center",
-          margin: "10px auto",
+          color: 'red',
+          textAlign: 'center',
+          margin: '10px auto',
         }}
       >
         Отклоненные Заявки
       </Typography>
       <TableContainer
         component={Paper}
-        sx={{ margin: "0 auto", maxWidth: "1000px", overflowX: "auto" }}
+        sx={{ margin: '0 auto', maxWidth: '1000px', overflowX: 'auto' }}
       >
         <Table>
           <TableHead
             sx={{
-              backgroundColor: "#e0e0e0",
+              backgroundColor: '#e0e0e0',
             }}
           >
             <TableRow>
@@ -159,26 +160,26 @@ const CanselExpense = () => {
                   <TableCell>{expense.timestamp}</TableCell>
                   <TableCell>
                     <img
-                      src={`http://192.168.30.217:3030/${expense.imagePaths[0]}`}
+                      src={`${BASE_URL}/${expense.imagePaths[0]}`}
                       alt={expense.imagePaths[0]}
                       width={100}
                       onClick={() => handleOpen(expense.imagePaths[0])} // Открывайте окно при клике
-                      style={{ cursor: "pointer" }} // Стиль указывающий на кликабельность
+                      style={{ cursor: 'pointer' }} // Стиль указывающий на кликабельность
                     />
                   </TableCell>
                   <TableCell>{expense.status}</TableCell>
                   <TableCell
                     sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      rowGap: "10px",
+                      display: 'flex',
+                      flexDirection: 'column',
+                      rowGap: '10px',
                     }}
                   >
                     <Button
                       variant="contained"
                       color="success"
                       onClick={() =>
-                        updateStatus(expense.id, "На согласовании")
+                        updateStatus(expense.id, 'На согласовании')
                       }
                       fullWidth
                     >

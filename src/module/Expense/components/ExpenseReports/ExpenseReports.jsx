@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   useGetAllExpenses,
   useSpendFromCash,
   useUpdateExpenseStatus,
-} from "../../hook/useExpense";
+} from '../../hook/useExpense';
 import {
   Alert,
   Button,
@@ -22,17 +22,18 @@ import {
   TableRow,
   TextField,
   Typography,
-} from "@mui/material";
-import OpenImage from "../OpenImage/OpenImage";
-import { useGetAllEmployee } from "../../../Employee/hook/useEmployee";
+} from '@mui/material';
+import OpenImage from '../OpenImage/OpenImage';
+import { useGetAllEmployee } from '../../../Employee/hook/useEmployee';
+import { BASE_URL } from '../../../../../env';
 
 const ExpenseReports = () => {
   const { data } = useGetAllExpenses();
   const [arrayExpense, setArrayExpense] = useState([]);
   const [total, setTotal] = useState();
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [employeeId, setEmployeeId] = useState("");
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [employeeId, setEmployeeId] = useState('');
   const { data: employees } = useGetAllEmployee();
 
   useEffect(() => {
@@ -40,7 +41,7 @@ const ExpenseReports = () => {
     if (data) {
       // Apply status filter
       const pendingExpenses = data.filter(
-        (expense) => expense.status === "Выдано"
+        (expense) => expense.status === 'Выдано'
       );
 
       // Apply date range filter
@@ -149,9 +150,9 @@ const ExpenseReports = () => {
       <Typography
         variant="h4"
         sx={{
-          color: "green",
-          textAlign: "center",
-          margin: "10px auto",
+          color: 'green',
+          textAlign: 'center',
+          margin: '10px auto',
         }}
       >
         Выданные заявки
@@ -159,35 +160,35 @@ const ExpenseReports = () => {
 
       <Grid
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          rowGap: "10px",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          rowGap: '10px',
         }}
       >
         <Typography
           variant="h4"
           sx={{
-            color: "green",
-            textAlign: "center",
+            color: 'green',
+            textAlign: 'center',
           }}
         >
           Фильтры
         </Typography>
         <Grid
           sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            rowGap: "15px",
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            rowGap: '15px',
           }}
         >
           <Grid
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-              width: "50%",
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              width: '50%',
             }}
           >
             <InputLabel>Дата от:</InputLabel>
@@ -199,10 +200,10 @@ const ExpenseReports = () => {
 
           <Grid
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-end",
-              width: "50%",
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-end',
+              width: '50%',
             }}
           >
             <InputLabel>Дата до:</InputLabel>
@@ -214,7 +215,7 @@ const ExpenseReports = () => {
 
           <Grid
             sx={{
-              width: "100%",
+              width: '100%',
             }}
           >
             <FormControl fullWidth>
@@ -239,7 +240,7 @@ const ExpenseReports = () => {
             <Alert
               severity="success"
               sx={{
-                justifyContent: "center",
+                justifyContent: 'center',
               }}
             >
               Итог расхода по заданным фильтрам : {total}
@@ -249,12 +250,12 @@ const ExpenseReports = () => {
       </Grid>
       <TableContainer
         component={Paper}
-        sx={{ margin: "0 auto", maxWidth: "1200px", overflowX: "auto" }}
+        sx={{ margin: '0 auto', maxWidth: '1200px', overflowX: 'auto' }}
       >
         <Table>
           <TableHead
             sx={{
-              backgroundColor: "#e0e0e0",
+              backgroundColor: '#e0e0e0',
             }}
           >
             <TableRow>
@@ -282,11 +283,11 @@ const ExpenseReports = () => {
                   <TableCell>{expense.timestamp}</TableCell>
                   <TableCell>
                     <img
-                      src={`http://192.168.30.217:3030/${expense.imagePaths[0]}`}
+                      src={`${BASE_URL}/${expense.imagePaths[0]}`}
                       alt={expense.imagePaths[0]}
                       width={100}
                       onClick={() => handleOpen(expense.imagePaths[0])} // Открывайте окно при клике
-                      style={{ cursor: "pointer" }} // Стиль указывающий на кликабельность
+                      style={{ cursor: 'pointer' }} // Стиль указывающий на кликабельность
                     />
                   </TableCell>
                   <TableCell>{expense.status}</TableCell>

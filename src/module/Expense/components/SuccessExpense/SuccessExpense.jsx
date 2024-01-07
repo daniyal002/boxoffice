@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   useGetAllExpenses,
   useSpendFromCash,
   useUpdateExpenseStatus,
-} from "../../hook/useExpense";
+} from '../../hook/useExpense';
 import {
   Alert,
   Button,
@@ -16,8 +16,9 @@ import {
   TablePagination,
   TableRow,
   Typography,
-} from "@mui/material";
-import OpenImage from "../OpenImage/OpenImage";
+} from '@mui/material';
+import OpenImage from '../OpenImage/OpenImage';
+import { BASE_URL } from '../../../../../env';
 
 const SuccessExpense = () => {
   const { mutate } = useUpdateExpenseStatus();
@@ -29,7 +30,7 @@ const SuccessExpense = () => {
   useEffect(() => {
     if (data) {
       const pendingExpenses = data.filter(
-        (expense) => expense.status === "Согласовано"
+        (expense) => expense.status === 'Согласовано'
       );
       console.log(data);
       setArrayExpense(pendingExpenses);
@@ -63,7 +64,7 @@ const SuccessExpense = () => {
 
   if (data) {
     displayedData = data
-      .filter((expense) => expense.status === "Согласовано")
+      .filter((expense) => expense.status === 'Согласовано')
       .slice() // Клонируем данные, чтобы избежать изменения исходного массива
       .slice(indexOfFirstRow, indexOfLastRow);
   }
@@ -91,21 +92,21 @@ const SuccessExpense = () => {
       <Typography
         variant="h4"
         sx={{
-          color: "green",
-          textAlign: "center",
-          margin: "10px auto",
+          color: 'green',
+          textAlign: 'center',
+          margin: '10px auto',
         }}
       >
         Согласованные заявки
       </Typography>
       <TableContainer
         component={Paper}
-        sx={{ margin: "0 auto", maxWidth: "1200px", overflowX: "auto" }}
+        sx={{ margin: '0 auto', maxWidth: '1200px', overflowX: 'auto' }}
       >
         <Table>
           <TableHead
             sx={{
-              backgroundColor: "#e0e0e0",
+              backgroundColor: '#e0e0e0',
             }}
           >
             <TableRow>
@@ -134,11 +135,11 @@ const SuccessExpense = () => {
                   <TableCell>{expense.timestamp}</TableCell>
                   <TableCell>
                     <img
-                      src={`http://192.168.30.217:3030/${expense.imagePaths[0]}`}
+                      src={`${BASE_URL}/${expense.imagePaths[0]}`}
                       alt={expense.imagePaths[0]}
                       width={100}
                       onClick={() => handleOpen(expense.imagePaths[0])} // Открывайте окно при клике
-                      style={{ cursor: "pointer" }} // Стиль указывающий на кликабельность
+                      style={{ cursor: 'pointer' }} // Стиль указывающий на кликабельность
                     />
                   </TableCell>
                   <TableCell>{expense.status}</TableCell>
@@ -147,7 +148,7 @@ const SuccessExpense = () => {
                       variant="contained"
                       color="success"
                       onClick={() => {
-                        updateStatus(expense.id, "Выдано");
+                        updateStatus(expense.id, 'Выдано');
                         expenseCash(expense.cash_id, expense.amount);
                       }}
                       fullWidth
@@ -177,7 +178,7 @@ const SuccessExpense = () => {
         <Alert
           severity="error"
           sx={{
-            justifyContent: "center",
+            justifyContent: 'center',
           }}
         >
           {err}

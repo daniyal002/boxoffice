@@ -1,9 +1,10 @@
-import axios from "axios";
+import axios from 'axios';
+import { BASE_URL } from '../../../../env';
+
+axios.defaults.baseURL = BASE_URL;
 
 const reg = (body) => {
-  return axios
-    .post("http://192.168.30.217:3030/user/register", body)
-    .then((response) => response.data);
+  return axios.post('/user/register', body).then((response) => response.data);
 };
 
 export default reg;

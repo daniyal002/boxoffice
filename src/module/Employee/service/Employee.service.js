@@ -1,8 +1,11 @@
 import axios from "axios";
 // import Cookies from "js-cookie";
+import { BASE_URL } from '../../../../env';
+
+
 
 // const token = Cookies.get("token");
-axios.defaults.baseURL = "http://192.168.30.217:3030";
+axios.defaults.baseURL = BASE_URL;
 // if (token) {
 //   axios.defaults.headers = {
 //     Authorization: `${token}`,

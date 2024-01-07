@@ -1,18 +1,14 @@
-import axios from "axios";
-import Cookies from "js-cookie";
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { BASE_URL } from '../../../../env';
 
-const token = Cookies.get("token");
+const token = Cookies.get('token');
 
-axios.defaults.baseURL = "http://192.168.30.217:3030";
-// if (token) {
-axios.defaults.headers = {
-  "ngrok-skip-browser-warning": "true",
-};
-// }
+axios.defaults.baseURL = BASE_URL;
 
 const getAllCashe = async (token) => {
   return axios
-    .get("/cahes/getAllCashes", {
+    .get('/cahes/getAllCashes', {
       headers: {
         Authorization: token,
       },
@@ -23,7 +19,7 @@ const getAllCashe = async (token) => {
 const getCasheById = async (body, token) => {
   return axios
     .post(
-      "/cahes/getCasheById",
+      '/cahes/getCasheById',
       { id: body },
       {
         headers: {
@@ -36,7 +32,7 @@ const getCasheById = async (body, token) => {
 
 const createCashe = async (body, token) => {
   return axios
-    .post("/cahes/createCashe", body, {
+    .post('/cahes/createCashe', body, {
       headers: {
         Authorization: token,
       },
@@ -46,7 +42,7 @@ const createCashe = async (body, token) => {
 
 const updateCashe = async (body, token) => {
   return axios
-    .put("/cahes/updateCashe", body, {
+    .put('/cahes/updateCashe', body, {
       headers: {
         Authorization: token,
       },
@@ -57,7 +53,7 @@ const updateCashe = async (body, token) => {
 const deleteCashe = async (casheId, token) => {
   return axios
     .post(
-      "/cahes/deleteCashe",
+      '/cahes/deleteCashe',
       { id: casheId },
       {
         headers: {

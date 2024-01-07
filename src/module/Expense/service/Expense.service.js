@@ -1,9 +1,9 @@
 import axios from "axios";
+import { BASE_URL } from '../../../../env';
 
-axios.defaults.baseURL = "http://192.168.30.217:3030";
-axios.defaults.headers = {
-  "ngrok-skip-browser-warning": "true",
-};
+
+axios.defaults.baseURL = BASE_URL;
+
 
 const getAllExpense = async (token) => {
   return axios
